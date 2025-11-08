@@ -1,0 +1,39 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  deploy:
+    name: Deploy to Shopify Oxygen
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Oxygen
+        run: |
+          npx shopify hydrogen deploy \
+            --force \
+            --env production \
+            --metadata-description "Auto-deploy from GitHub Actions - ${{ github.sha }}" \
+            --token "${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN }}"
+        env:
+          SHOPIFY_CLI_NO_ANALYTICS: 1
+          SHOPIFY_FLAG_NO_INTERACTIVE: 1
