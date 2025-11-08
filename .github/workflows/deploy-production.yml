@@ -31,9 +31,9 @@ jobs:
         run: |
           npx shopify hydrogen deploy \
             --force \
-            --env production \
             --metadata-description "Auto-deploy from GitHub Actions - ${{ github.sha }}" \
             --token "${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN }}"
         env:
+          CI: 1
           SHOPIFY_CLI_NO_ANALYTICS: 1
           SHOPIFY_FLAG_NO_INTERACTIVE: 1
