@@ -42,20 +42,19 @@ export function Footer({settings}: {settings?: any}) {
   let logoWhite = '';
 
   if (settings) {
-    settings.forEach((setting: any) => {
-      if (setting && setting.header?.logoWhite) {
-        logoWhite = setting.header.logoWhite;
-      }
-      if (setting && setting.social) {
-        socialConfig = setting.social;
-      }
-      if (setting && setting.footer) {
-        footer = setting.footer;
-      }
-      if (setting && setting.other) {
-        otherConfig = setting.other;
-      }
-    });
+    // Handle settings as an object (from CMS API)
+    if (settings.header?.logoWhite) {
+      logoWhite = settings.header.logoWhite;
+    }
+    if (settings.social) {
+      socialConfig = settings.social;
+    }
+    if (settings.footer) {
+      footer = settings.footer;
+    }
+    if (settings.other) {
+      otherConfig = settings.other;
+    }
   }
 
   const isHome = useIsHomePath();
@@ -261,23 +260,23 @@ function FooterMenu({
 }
 
 function FooterBottom({others}: {others: any}) {
-  const {paymentImage, storeName, storeDomain} = others;
+  const {paymentImage, storeName, storeDomain} = others || {};
   const {t} = useTranslation();
 
   return (
     <div className="text-sm bg-gray-200 copyright-style">
       <div className="container flex flex-row items-center justify-between py-6 text-center sm-max:flex-col">
         <div>
-          &copy; {new Date().getFullYear()}, {storeName} {t('fields.powerBy')}{' '}
+          &copy; {new Date().getFullYear()}, {storeName || 'Wow Store'} {t('fields.powerBy')}{' '}
           <a
             href={`https://${
-              storeDomain.length > 0 ? storeDomain : 'truestorefront.com'
+              storeDomain && storeDomain.length > 0 ? storeDomain : 'wowstore.live'
             }`}
             target="_blank"
             className="underline"
             rel="noreferrer"
           >
-            {storeDomain}
+            {storeDomain || 'wowstore.live'}
           </a>
         </div>
         <div className="flex mt-0 sm-max:mt-3">

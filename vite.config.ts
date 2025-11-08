@@ -30,7 +30,16 @@ export default defineConfig({
        * Include 'example-dep' in the array below.
        * @see https://vitejs.dev/config/dep-optimization-options
        */
-      include: ['set-cookie-parser', 'cookie', 'react-router'],
+      include: [
+        'set-cookie-parser',
+        'cookie',
+        'react-router',
+        'react-i18next',
+        'i18next',
+        'i18next-browser-languagedetector',
+        'i18next-http-backend',
+        'typographic-base',
+      ],
     },
   },
   server: {
