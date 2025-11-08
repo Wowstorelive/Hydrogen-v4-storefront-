@@ -14,6 +14,16 @@ export function LayoutWinter({
   cmsSettings,
   cmsMenu,
 }: LayoutProps) {
+  // Ensure we always have valid data
+  const safeSettings = cmsSettings || {
+    header: {logo: null, topLinks: []},
+    social: [],
+    other: {shippingText: '', phoneNumber: ''},
+  };
+
+  const safeMenu = cmsMenu || {items: []};
+  const safeTitle = layout?.shop?.name || 'WowStore';
+
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -23,19 +33,17 @@ export function LayoutWinter({
           </a>
         </div>
 
-        {cmsSettings && cmsMenu && layout?.shop.name && (
-          <Header
-            title={layout.shop.name}
-            menu={cmsMenu}
-            settings={cmsSettings}
-          />
-        )}
+        <Header
+          title={safeTitle}
+          menu={safeMenu}
+          settings={safeSettings}
+        />
 
         <main role="main" id="mainContent" className="flex-grow">
           {children}
         </main>
       </div>
-      {cmsSettings && <Footer settings={cmsSettings} />}
+      <Footer settings={safeSettings} />
     </>
   );
 }
