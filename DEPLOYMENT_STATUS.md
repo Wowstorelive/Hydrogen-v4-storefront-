@@ -102,6 +102,6 @@ All code fixes have been committed to `main` branch:
 
 ---
 
-**Status:** Fixed duplicate secrets - testing deployment now
+**Status:** Secret properly configured in Repository secrets - deploying Owen Winter theme!
 
 **Next Step:** Run the workflow from GitHub Actions to deploy the Owen Winter theme to production.
