@@ -25,7 +25,7 @@ export function MenuDrawer({
       open={isOpen}
       onClose={onClose}
       openFrom={direction}
-      heading={t('header.menu')}
+      heading="Menu"
       width="w-[90vw]"
     >
       <div className="grid border-t max-h-screen overflow-auto pb-40">
@@ -46,39 +46,46 @@ function MenuMobileNav({menu, onClose}: {menu: any; onClose: () => void}) {
     closeDrawer: closeSubMenu,
   } = useDrawer();
 
+  // Handle both old Sanity format and new CMS format
+  const menuItems = menu?.items || menu || [];
+
   useEffect(() => {
     if (sectionSelected) {
-      const linkSection = menu.find(
-        (item: any) => item._id === sectionSelected,
+      const linkSection = menuItems.find(
+        (item: any) => (item.id || item._id) === sectionSelected,
       );
       setSubMenuDrawer(linkSection);
     }
-  }, [menu, sectionSelected]);
+  }, [menuItems, sectionSelected]);
 
   return (
     <nav className="grid gap-3 p-6 sm:px-12 sm:py-8">
-      {(menu || []).map((item: any) => {
-        const {linkSection, mainLink} = item;
-        const link = mainLink.slug ? mainLink.slug : '/';
+      {menuItems.map((item: any) => {
+        // Support both formats: {url, title, children} and {mainLink, linkSection}
+        const link = item.url || item.mainLink?.slug || '/';
+        const title = item.title || item.mainLink?.title || 'Menu item';
+        const hasChildren = (item.children && item.children.length > 0) || item.linkSection;
+        const itemKey = item.id || item._id || title;
+        
         return (
           <div
-            key={item._id}
+            key={itemKey}
             className="bg-white relative border border-gray-200 rounded-lg box-border"
           >
             <Link
               to={link}
               onClick={onClose}
               className={`${
-                linkSection ? 'relative z-10 inline-block mr-8 rtl:mr-0 rtl:ml-8' : 'block'
+                hasChildren ? 'relative z-10 inline-block mr-8 rtl:mr-0 rtl:ml-8' : 'block'
               } px-4 py-3`}
             >
-              {mainLink.title ? mainLink.title : ''}
+              {title}
             </Link>
-            {linkSection && (
+            {hasChildren && (
               <span
                 onClick={() => {
                   openSubMenu();
-                  setSectionSelected(item._id);
+                  setSectionSelected(itemKey);
                 }}
                 aria-hidden="true"
                 className="absolute top-0 left-0 w-full h-full flex justify-end items-center px-3"
@@ -94,16 +101,20 @@ function MenuMobileNav({menu, onClose}: {menu: any; onClose: () => void}) {
           open={isSubMenuOpen}
           onClose={closeSubMenu}
           openFrom={direction}
-          heading={subMenuDrawer.mainLink.title}
+          heading={subMenuDrawer.title || subMenuDrawer.mainLink?.title || 'Submenu'}
           width="w-[90vw]"
         >
           <nav className="grid gap-3 p-6 sm:px-12 sm:pt-8 border-t max-h-screen overflow-auto pb-40">
-            {(subMenuDrawer.linkSection || []).map((item: any) => {
-              const {mainLink, subLink} = item;
+            {((subMenuDrawer.children || subMenuDrawer.linkSection) || []).map((item: any, index: number) => {
+              // Support both formats
+              const subLink = item.children || item.subLink;
+              const mainLink = item.url ? {slug: item.url, title: item.title} : item.mainLink;
+              const itemKey = item.id || item._key || `sub-${index}`;
+              
               return (
                 <div
                   className="rounded-lg border border-gray-200"
-                  key={item._key}
+                  key={itemKey}
                 >
                   {mainLink ? (
                     <Disclosure>
@@ -112,7 +123,7 @@ function MenuMobileNav({menu, onClose}: {menu: any; onClose: () => void}) {
                           <Disclosure.Button className="w-full text-base text-left font-medium border-none">
                             <div className="relative flex items-center justify-between text-base font-medium tracking-wide">
                               <Link
-                                to={mainLink.slug}
+                                to={mainLink.slug || mainLink.url || '#'}
                                 onClick={onClose}
                                 className="inline-block px-4 py-3"
                               >
@@ -140,16 +151,18 @@ function MenuMobileNav({menu, onClose}: {menu: any; onClose: () => void}) {
                                 static
                                 className="p-4 flex flex-col gap-2 text-base border-t border-gray-200 font-light"
                               >
-                                {(subLink || []).map((item: any) => {
-                                  const {slug, title} = item;
+                                {(subLink || []).map((subItem: any, subIndex: number) => {
+                                  const slug = subItem.slug || subItem.url || '#';
+                                  const title = subItem.title || 'Item';
+                                  const subItemKey = subItem.id || subItem._key || `subitem-${subIndex}`;
 
                                   return (
                                     <Link
-                                      to={slug ? slug : ''}
-                                      key={item._key}
+                                      to={slug}
+                                      key={subItemKey}
                                       onClick={onClose}
                                     >
-                                      {title ? title : ''}
+                                      {title}
                                     </Link>
                                   );
                                 })}
@@ -161,16 +174,18 @@ function MenuMobileNav({menu, onClose}: {menu: any; onClose: () => void}) {
                     </Disclosure>
                   ) : (
                     <div className="p-4 flex flex-col gap-2 text-base font-light">
-                      {(subLink || []).map((item: any) => {
-                        const {slug, title} = item;
+                      {(subLink || []).map((subItem: any, subIndex: number) => {
+                        const slug = subItem.slug || subItem.url || '#';
+                        const title = subItem.title || 'Item';
+                        const subItemKey = subItem.id || subItem._key || `subitem-${subIndex}`;
 
                         return (
                           <Link
-                            to={slug ? slug : ''}
-                            key={item._key}
+                            to={slug}
+                            key={subItemKey}
                             onClick={onClose}
                           >
-                            {title ? title : ''}
+                            {title}
                           </Link>
                         );
                       })}
