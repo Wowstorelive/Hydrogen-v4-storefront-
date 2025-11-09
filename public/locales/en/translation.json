@@ -1,0 +1,21 @@
+{
+  "fields": {
+    "search": "Search products..."
+  },
+  "header": {
+    "account": "Account",
+    "compare": "Compare",
+    "wishlist": "Wishlist",
+    "cart": "Cart",
+    "hotlineText": "Customer Support"
+  },
+  "footer": {
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Subscribe to get special offers and updates",
+      "placeholder": "Enter your email",
+      "button": "Subscribe"
+    },
+    "copyright": "© 2025 WowStore. All rights reserved."
+  }
+}
