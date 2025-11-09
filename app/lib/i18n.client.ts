@@ -42,14 +42,20 @@ const resources = {
   },
 };
 
-i18n.use(initReactI18next).init({
-  resources,
-  lng: 'en',
-  fallbackLng: 'en',
-  debug: false,
-  interpolation: {
-    escapeValue: false,
-  },
-});
+// Initialize i18n synchronously
+if (!i18n.isInitialized) {
+  i18n.use(initReactI18next).init({
+    resources,
+    lng: 'en',
+    fallbackLng: 'en',
+    debug: true, // Enable debug to see what's happening
+    interpolation: {
+      escapeValue: false,
+    },
+    react: {
+      useSuspense: false, // Disable suspense to avoid timing issues
+    },
+  });
+}
 
 export default i18n;
