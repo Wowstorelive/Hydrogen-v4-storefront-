@@ -102,6 +102,6 @@ All code fixes have been committed to `main` branch:
 
 ---
 
-**Status:** Corrected deployment token (using eyJhY... token, not shpat_ token)
+**Status:** Fixed duplicate secrets - testing deployment now
 
 **Next Step:** Run the workflow from GitHub Actions to deploy the Owen Winter theme to production.
