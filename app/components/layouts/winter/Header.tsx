@@ -80,11 +80,11 @@ export function Header({
     useStoreContext() as any;
 
   const addToCartFetchers = useCartFetchers(CartForm.ACTIONS.LinesAdd);
-  const logo = settings[0]?.header?.logo;
-  const social = settings[0]?.social;
-  const topLinks = settings[0]?.header?.topLinks;
-  const shippingText = settings[0]?.other?.shippingText;
-  const phoneNumber = settings[0]?.other?.phoneNumber;
+  const logo = settings?.header?.logo;
+  const social = settings?.social;
+  const topLinks = settings?.header?.topLinks;
+  const shippingText = settings?.other?.shippingText;
+  const phoneNumber = settings?.other?.phoneNumber;
   // toggle cart drawer when adding to cart
   useEffect(() => {
     if (isCartOpen || !addToCartFetchers.length) return;
