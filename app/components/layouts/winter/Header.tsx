@@ -251,7 +251,7 @@ function DesktopHeader({
               <Input
                 type="text"
                 className="w-full h-10 border border-black border-opacity-10 rounded-3xl px-6 bg-black bg-opacity-10 placeholder-current placeholder-opacity-50"
-                placeholder={t('fields.search')}
+                placeholder="Search products..."
                 name="q"
                 variant=""
                 onChange={(e) => showResultSearch(e)}
@@ -266,7 +266,7 @@ function DesktopHeader({
             <IconSupport className="w-8 h-8" />
             <div>
               <div className="text-xs font-semibold uppercase">
-                {t('header.hotlineText')}
+                Customer Support
               </div>
               <p className="tracking-wide">{phoneNumber ?? ''}</p>
             </div>
@@ -282,7 +282,7 @@ function DesktopHeader({
                 <Await resolve={isLoggedIn} errorElement={<IconAccount width="23" height="25" />}>
                   <IconAccount width="23" height="25" />
                   <span className="text-[10px] uppercase">
-                    {t('header.account')}
+                    Account
                   </span>
                 </Await>
               </Suspense>
@@ -299,7 +299,7 @@ function DesktopHeader({
                 )}
               </span>
               <span className="block text-[10px] uppercase">
-                {t('header.compare')}
+                Compare
               </span>
             </Link>
             <Link
@@ -314,7 +314,7 @@ function DesktopHeader({
                 )}
               </span>
               <span className="block text-[10px] uppercase">
-                {t('header.wishlist')}
+                Wishlist
               </span>
             </Link>
             <CartCount isHome={isHome} openCart={openCart} />
@@ -455,7 +455,7 @@ function CartBadge({
           <span>{count || 0}</span>
         </div>
         <span className="text-[10px] md-max:hidden uppercase">
-          {t('header.cart')}
+          Cart
         </span>
       </>
     ),

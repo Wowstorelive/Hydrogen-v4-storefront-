@@ -13,7 +13,7 @@ export function Newsletter({inputClass = 'border-0 py-3'}: {inputClass?: any}) {
 
   const handleSubmitEmail = async () => {
     if (!ValidateEmail(emailInput)) {
-      setErrorMessage(t('errorMesg.invalidEmail'));
+      setErrorMessage('Please enter a valid email address');
       return;
     }
 
@@ -61,7 +61,7 @@ export function Newsletter({inputClass = 'border-0 py-3'}: {inputClass?: any}) {
           type="text"
           disabled={emailSending}
           value={emailInput}
-          placeholder={t('fields.emailAddress')}
+          placeholder="Enter your email"
           className={
             inputClass +
             ' w-full px-4 font-normal bg-white rounded-full text-black md:rounded-br-none md:rounded-tr-none'
@@ -76,7 +76,7 @@ export function Newsletter({inputClass = 'border-0 py-3'}: {inputClass?: any}) {
           onClick={handleSubmitEmail}
         >
           <span className="text-sm font-medium leading-6 text-white uppercase">
-            {t('global.join')}
+            Subscribe
           </span>
         </button>
       </div>
@@ -88,9 +88,9 @@ export function Newsletter({inputClass = 'border-0 py-3'}: {inputClass?: any}) {
           <div className="fixed z-50 top-0 left-0 right-0 bottom-0 m-auto max-w-md max-h-56 p-6">
             <div className="bg-white text-black relative w-full h-full p-6 rounded flex flex-col items-center justify-center text-center">
               <h3 className="text-xl font-bold mb-2 uppercase">
-                {t('successMesg.newsletterSuccess')}
+                Success!
               </h3>
-              <p>{t('successMesg.newsletterMessage')}</p>
+              <p>Thank you for subscribing to our newsletter!</p>
               <span
                 onClick={(e) => setResetForm(true)}
                 className="p-2 cursor-pointer absolute top-0 right-0"

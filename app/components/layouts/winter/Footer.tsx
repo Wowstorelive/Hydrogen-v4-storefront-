@@ -90,7 +90,7 @@ function FooterTop() {
               as="h6"
               className="text-xl font-light ml-4 lg:whitespace-nowrap"
             >
-              {t('global.newsletterHeading')}
+              Newsletter
             </Heading>
           </div>
 
@@ -98,7 +98,7 @@ function FooterTop() {
             as="h6"
             className="text-base font-medium flex items-center justify-center lg:justify-start pb-4 lg:pb-0 lg:whitespace-nowrap"
           >
-            ...{t('global.newsletterText')}
+            ...Subscribe to get special offers and updates
           </Heading>
         </div>
 
@@ -125,25 +125,25 @@ function FooterMenu({
       <section className="container relative grid grid-flow-row pt-10 pb-6 divide-y divide-black divide-opacity-25 lg:py-16 lg:grid-cols-6 lg:gap-4 divide-solid lg:divide-none">
         <section className="pb-6 lg:col-span-2 lg:pr-10 lg:pb-0">
           <Heading as="h3" className="mb-4 font-bold tracking-wide">
-            {t('global.ourStore')}
+            Our Store
           </Heading>
-          <Text as="p">{t('global.storeInfo')}</Text>
+          <Text as="p">Store Information</Text>
           <div className="flex items-center gap-3 mt-6">
             <MapMarkerIcon className="text-base" />
             <Text as="p">
-              {t('fields.address')}: {others.address1}
+              Address: {others.address1}
             </Text>
           </div>
           <div className="flex items-center gap-3 mt-3">
             <Envelope width={16} height={16} />
             <Text as="p">
-              {t('fields.email')}: {others.email}
+              Email: {others.email}
             </Text>
           </div>
           <div className="flex items-center gap-3 mt-3">
             <PhoneIcon />
             <Text as="p">
-              {t('fields.phone')}: {others.phoneNumber}
+              Phone: {others.phoneNumber}
             </Text>
           </div>
         </section>
@@ -214,7 +214,7 @@ function FooterMenu({
                   as="h3"
                   className="relative max-w-full flex justify-between text-base font-medium tracking-wide lg:mb-8 uppercase"
                 >
-                  {t('fields.openingTime')}
+                  Opening Hours
                   <span className="flex items-center justify-center lg:hidden">
                     <IconCaret
                       className="w-full"
@@ -267,7 +267,7 @@ function FooterBottom({others}: {others: any}) {
     <div className="text-sm bg-gray-200 copyright-style">
       <div className="container flex flex-row items-center justify-between py-6 text-center sm-max:flex-col">
         <div>
-          &copy; {new Date().getFullYear()}, {storeName || 'Wow Store'} {t('fields.powerBy')}{' '}
+          &copy; {new Date().getFullYear()}, {storeName || 'Wow Store'} Powered by{' '}
           <a
             href={`https://${
               storeDomain && storeDomain.length > 0 ? storeDomain : 'wowstore.live'
